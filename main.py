@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
-from Quest_Forge.player import Player  # reusing your Player class
+from player import Player  # reusing your Player class
 
 # Create Player instance
 player = Player()
