@@ -1,0 +1,40 @@
+{
+    "name": "abhinav",
+    "age": "19",
+    "gender": "male",
+    "level": 0,
+    "xp": 0,
+    "xp_limit": 10000,
+    "stats": {
+        "Strength": {
+            "level": 1,
+            "xp": 0,
+            "xp_limit": 1000,
+            "tasks": {
+                "Daily gym": 80,
+                "Hit a new PR": 300,
+                "50 seconds deadhang": 150,
+                "35 pushups in a row": 200,
+                "50 squats in a row": 150,
+                "60 seconds plank": 100,
+                "5 pull-ups": 500
+            }
+        },
+        "Knowledge": {
+            "level": 1,
+            "xp": 0,
+            "xp_limit": 1000,
+            "tasks": {
+                "Read 10 pages of a book": 80,
+                "Studying bca subject for 1hr": 100,
+                "aptitude questions 10": 100,
+                "research latest tech": 150,
+                "learn a new language": 200,
+                "15 minutes GK": 80,
+                "20minutes current affair": 100,
+                "10 minutes vocabulary": 90,
+                "learn a new skill": 300
+            }
+        }
+    }
+}
