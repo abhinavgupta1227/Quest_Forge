@@ -2,14 +2,14 @@
     "name": "Abhinav Gupta",
     "age": "19",
     "gender": "Male",
-    "level": 0,
-    "xp": 430,
-    "xp_limit": 10000,
+    "level": 1,
+    "xp": 1150,
+    "xp_limit": 11500,
     "stats": {
         "Strength": {
-            "level": 1,
-            "xp": 230,
-            "xp_limit": 1000,
+            "level": 7,
+            "xp": 92,
+            "xp_limit": 2984,
             "tasks": {
                 "Daily gym": 80,
                 "Hit a new PR": 300,
@@ -21,9 +21,9 @@
             }
         },
         "Knowledge": {
-            "level": 1,
-            "xp": 200,
-            "xp_limit": 1000,
+            "level": 2,
+            "xp": 130,
+            "xp_limit": 1200,
             "tasks": {
                 "Read 10 pages of a book": 80,
                 "Studying bca subject for 1hr": 100,
