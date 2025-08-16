@@ -3,7 +3,7 @@
     "age": "19",
     "gender": "male",
     "level": 2,
-    "xp": 520,
+    "xp": 4680,
     "xp_limit": 11500,
     "stats": {
         "Strength": {
@@ -28,9 +28,9 @@
             }
         },
         "Knowledge": {
-            "level": 2,
-            "xp": 0,
-            "xp_limit": 1200,
+            "level": 3,
+            "xp": 200,
+            "xp_limit": 1440,
             "tasks": {
                 "Read 10 pages of a book": 150,
                 "Studying BCA subject for 1hr": 200,
@@ -47,7 +47,7 @@
         },
         "Relationships": {
             "level": 1,
-            "xp": 700,
+            "xp": 800,
             "xp_limit": 1000,
             "tasks": {
                 "Call a friend": 100,
@@ -63,9 +63,9 @@
             }
         },
         "Stamina": {
-            "level": 1,
-            "xp": 650,
-            "xp_limit": 1000,
+            "level": 3,
+            "xp": 450,
+            "xp_limit": 1440,
             "tasks": {
                 "Half an hour of inclined walking": 250,
                 "Jogging for 10 minutes without stopping": 400,
@@ -94,7 +94,7 @@
         },
         "Reflexes": {
             "level": 2,
-            "xp": 340,
+            "xp": 740,
             "xp_limit": 1200,
             "tasks": {
                 "Play a reaction-time game online (e.g., Human Benchmark)": 200,
@@ -178,8 +178,8 @@
         "Drink 8 glasses of water": {
             "xp_value": 20,
             "penalty": -15,
-            "streak": 1,
-            "completed_today": false
+            "streak": 2,
+            "completed_today": true
         },
         "Read for 15 minutes": {
             "xp_value": 30,
@@ -196,11 +196,11 @@
         "Go for a 20-minute walk": {
             "xp_value": 40,
             "penalty": -20,
-            "streak": 1,
+            "streak": 0,
             "completed_today": false
         }
     },
-    "last_login_date": "2025-08-01",
+    "last_login_date": "2025-08-07",
     "weekly_todos": {
         "Monday": [
             {
@@ -328,57 +328,24 @@
     "current_week": "2025-W30",
     "daily_todos": {
         "previous": {
-            "date": "2025-07-31",
-            "tasks": [
-                {
-                    "task": "go to the barber",
-                    "done": true
-                },
-                {
-                    "task": "drink 3 litres of water",
-                    "done": true
-                },
-                {
-                    "task": "go to the gym",
-                    "done": false
-                },
-                {
-                    "task": "1 hr cardio",
-                    "done": false
-                },
-                {
-                    "task": "complete certification",
-                    "done": true
-                }
-            ]
+            "date": "2025-08-06",
+            "tasks": []
         },
         "current": {
-            "date": "2025-08-01",
+            "date": "2025-08-07",
             "tasks": [
                 {
-                    "task": "go to the gym",
+                    "task": "hello",
                     "done": false
                 },
                 {
-                    "task": "20 mins cardio",
-                    "done": false
-                },
-                {
-                    "task": "Eat protein in dinner",
-                    "done": false
-                },
-                {
-                    "task": "start with machine learning projects",
-                    "done": false
-                },
-                {
-                    "task": "watch videos about powerBI",
+                    "task": "i have to buy groceries from the market",
                     "done": false
                 }
             ]
         },
         "next": {
-            "date": "2025-08-02",
+            "date": "2025-08-08",
             "tasks": []
         }
     }

@@ -1,11 +1,15 @@
-# player.py (Overhauled with 3-Day To-Do List Logic)
+# player.py (Final Version)
 import json
 import os
 import math
 from datetime import date, timedelta
 
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-PROFILE_PATH = os.path.join(SCRIPT_DIR, "data", "player_profile.json")
+# --- NEW, ROBUST SAVE PATH ---
+# This finds the user's AppData\Roaming folder on Windows and creates a dedicated folder for our app's save data.
+# This ensures every user gets their own separate save file in a persistent location.
+APP_DATA_PATH = os.getenv('APPDATA') or os.path.expanduser('~')
+SAVE_DIR = os.path.join(APP_DATA_PATH, 'QuestForge', 'data')
+PROFILE_PATH = os.path.join(SAVE_DIR, 'player_profile.json')
 
 HABIT_BLUEPRINTS = {
     "Drink 8 glasses of water": {"xp_value": 20, "penalty": -15},
@@ -102,12 +106,12 @@ class Player:
 
     def save_profile(self):
         os.makedirs(os.path.dirname(PROFILE_PATH), exist_ok=True)
-        with open(PROFILE_PATH, "w") as f:
+        with open(PROFILE_PATH, "w", encoding="utf-8") as f:
             json.dump(self.data, f, indent=4)
 
     def load_profile(self):
         if not os.path.exists(PROFILE_PATH): return False
-        with open(PROFILE_PATH, "r") as f: self.data = json.load(f)
+        with open(PROFILE_PATH, "r", encoding="utf-8") as f: self.data = json.load(f)
         if "habits" not in self.data: self.data["habits"] = {}
         for habit_name, props in HABIT_BLUEPRINTS.items():
             if habit_name not in self.data["habits"]:

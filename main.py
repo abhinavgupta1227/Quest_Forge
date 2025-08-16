@@ -1,7 +1,10 @@
 # main.py (Final Version with 3-Day To-Do List)
 # -*- coding: utf-8 -*-
 import sys
-sys.stdout.reconfigure(encoding='utf-8')
+
+if sys.stdout and hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding='utf-8')
+
 import customtkinter as ctk
 from tkinter import messagebox
 from player import Player
