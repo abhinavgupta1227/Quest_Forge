@@ -75,7 +75,7 @@ class SplashScreen(ctk.CTkToplevel):
             except Exception as e:
                 print(f"Error loading splash screen logo: {e}")
         ctk.CTkLabel(main_frame, text="Loading...", font=("Arial", 16), text_color="gray60").pack(pady=(0, 30))
-        self.after(2000, self.launch_main_app)
+        self.after(5000, self.launch_main_app)
     def launch_main_app(self):
         self.destroy(); self.controller.setup_window(); self.controller.deiconify()
 
@@ -127,6 +127,7 @@ class MainAppFrame(ctk.CTkFrame):
         self.controller = controller; self.widgets_to_update = {}; self.built_task_frames = set()
         bottom_bar = ctk.CTkFrame(self, height=60, fg_color=("gray10", "#181818"), border_width=1, border_color=("gray15", "#2a2a2a")); bottom_bar.pack(side="bottom", fill="x", pady=(10, 0), padx=10)
         self.scrollable_frame = ctk.CTkScrollableFrame(self, fg_color="transparent"); self.scrollable_frame.pack(side="top", fill="both", expand=True)
+        self.scrollable_frame.bind_all("<MouseWheel>", self._on_mousewheel)
         self.create_control_bar(bottom_bar)
         self.create_main_content(self.scrollable_frame)
         self.after(100, self.controller.update_ui)
@@ -174,6 +175,54 @@ class MainAppFrame(ctk.CTkFrame):
         self._create_habit_tracker_ui(right_column)
         
         self._create_daily_todo_ui(container)
+        self._create_boss_ui(container)
+
+    def _create_boss_ui(self, parent):
+        boss_section = ctk.CTkFrame(parent, corner_radius=15, fg_color=("gray10", "#1a1a1a"), border_width=1, border_color=("#374151", "#4b5563"))
+        boss_section.pack(fill="x", pady=(20, 10), padx=10)
+        
+        grid_container = ctk.CTkFrame(boss_section, fg_color="transparent")
+        grid_container.pack(fill="x", expand=True, padx=10, pady=10)
+        grid_container.grid_columnconfigure(0, weight=1)
+        grid_container.grid_columnconfigure(1, weight=1)
+
+        # --- Daily Boss Frame ---
+        daily_frame = ctk.CTkFrame(grid_container, fg_color=("gray12", "#222222"), border_width=1, border_color=("#c2410c", "#c2410c"))
+        daily_frame.grid(row=0, column=0, sticky="nsew", padx=5)
+        ctk.CTkLabel(daily_frame, text="🔥 DAILY BOSS 🔥", font=("Orbitron", 18, "bold"), text_color=("#fb923c", "#fb923c")).pack(pady=10)
+        
+        daily_boss_name = ctk.CTkLabel(daily_frame, text="Loading...", font=("Arial", 16, "bold"), wraplength=350)
+        daily_boss_name.pack(pady=(5, 0), padx=10)
+        daily_boss_obj = ctk.CTkLabel(daily_frame, text="Loading...", font=("Arial", 14), text_color="gray80", wraplength=350)
+        daily_boss_obj.pack(pady=(0, 10), padx=10)
+        daily_boss_reward = ctk.CTkLabel(daily_frame, text="+??? XP", font=("Arial", 14, "italic"), text_color=("#059669", "#10b981"))
+        daily_boss_reward.pack(pady=5)
+        daily_boss_btn = ctk.CTkButton(daily_frame, text="Complete Quest", fg_color="#c2410c", hover_color="#9a3412", command=self.controller.player.complete_daily_boss)
+        daily_boss_btn.pack(pady=10)
+
+        # --- Weekly Boss Frame ---
+        weekly_frame = ctk.CTkFrame(grid_container, fg_color=("gray12", "#222222"), border_width=1, border_color=("#be185d", "#be185d"))
+        weekly_frame.grid(row=0, column=1, sticky="nsew", padx=5)
+        ctk.CTkLabel(weekly_frame, text="💀 WEEKLY BOSS 💀", font=("Orbitron", 18, "bold"), text_color=("#f472b6", "#f472b6")).pack(pady=10)
+        
+        weekly_boss_name = ctk.CTkLabel(weekly_frame, text="Loading...", font=("Arial", 16, "bold"), wraplength=350)
+        weekly_boss_name.pack(pady=(5, 0), padx=10)
+        weekly_boss_obj = ctk.CTkLabel(weekly_frame, text="Loading...", font=("Arial", 14), text_color="gray80", wraplength=350)
+        weekly_boss_obj.pack(pady=(0, 10), padx=10)
+        weekly_boss_reward = ctk.CTkLabel(weekly_frame, text="+??? XP", font=("Arial", 14, "italic"), text_color=("#059669", "#10b981"))
+        weekly_boss_reward.pack(pady=5)
+        weekly_boss_btn = ctk.CTkButton(weekly_frame, text="Complete Quest", fg_color="#be185d", hover_color="#9d174d", command=self.controller.player.complete_weekly_boss)
+        weekly_boss_btn.pack(pady=10)
+
+        self.widgets_to_update['bosses'] = {
+            'daily_name': daily_boss_name, 'daily_obj': daily_boss_obj, 'daily_reward': daily_boss_reward, 'daily_btn': daily_boss_btn,
+            'weekly_name': weekly_boss_name, 'weekly_obj': weekly_boss_obj, 'weekly_reward': weekly_boss_reward, 'weekly_btn': weekly_boss_btn
+        }
+
+    def _on_mousewheel(self, event):
+        # Multiplier for scroll speed (e.g., 3x faster)
+        multiplier = 25
+        self.scrollable_frame._parent_canvas.yview_scroll(int(-1 * (event.delta / 120) * multiplier), "units")
 
     def _create_habit_tracker_ui(self, parent):
         habits_container = ctk.CTkFrame(parent, fg_color="transparent"); habits_container.pack(fill="both", expand=True, padx=10, pady=(0,10))
@@ -301,6 +350,33 @@ class MainAppFrame(ctk.CTkFrame):
 
                         delete_btn = ctk.CTkButton(task_frame, text="🗑️", width=28, fg_color="transparent", hover_color="#552222", command=lambda d=day_key, idx=i: self._delete_todo_callback(d, idx))
                         delete_btn.grid(row=0, column=2, sticky="e", padx=(5,0))
+                
+        if 'bosses' in self.widgets_to_update:
+            # Daily Boss
+            if p_data.get('daily_boss'):
+                boss = p_data['daily_boss']
+                widgets = self.widgets_to_update['bosses']
+                widgets['daily_name'].configure(text=boss['name'])
+                widgets['daily_obj'].configure(text=boss['objective'])
+                widgets['daily_reward'].configure(text=f"⚔️ +{boss['xp_reward']:,} XP ⚔️")
+                if boss['is_defeated']:
+                    widgets['daily_btn'].configure(text="Defeated ✅", state="disabled", fg_color="gray30")
+                else:
+                    widgets['daily_btn'].configure(text="Complete Quest", state="normal", fg_color="#c2410c")
+
+            # Weekly Boss
+            if p_data.get('weekly_boss'):
+                boss = p_data['weekly_boss']
+                widgets = self.widgets_to_update['bosses']
+                widgets['weekly_name'].configure(text=boss['name'])
+                widgets['weekly_obj'].configure(text=boss['objective'])
+                widgets['weekly_reward'].configure(text=f"👑 +{boss['xp_reward']:,} XP 👑")
+                if boss['is_defeated']:
+                    widgets['weekly_btn'].configure(text="Defeated ✅", state="disabled", fg_color="gray30")
+                else:
+                    widgets['weekly_btn'].configure(text="Complete Quest", state="normal", fg_color="#be185d")
+
+            
 
 class QuestForgeApp(ctk.CTk):
     def __init__(self):
@@ -310,6 +386,7 @@ class QuestForgeApp(ctk.CTk):
         self.profile_loaded = self.player.load_profile()
         if self.profile_loaded:
             self.player.handle_daily_reset()
+            self.player.handle_weekly_reset()
         
         self.playlist = ["ambient_1.mp3", "ambient_2.mp3", "ambient_3.mp3"]
         self.current_track_index, self.music_is_paused = 0, False
@@ -360,7 +437,7 @@ class QuestForgeApp(ctk.CTk):
             track_name = self.playlist[self.current_track_index]
             music_path = os.path.join(SCRIPT_PATH, 'sounds', track_name)
             pygame.mixer.music.load(music_path)
-            pygame.mixer.music.set_volume(0.2); pygame.mixer.music.play(loops=-1)
+            pygame.mixer.music.set_volume(0.2); pygame.mixer.music.play()
             if self.music_is_paused: pygame.mixer.music.pause()
         except Exception as e: print(f"Music Play Error: {e}")
     

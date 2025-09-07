@@ -11,6 +11,20 @@ APP_DATA_PATH = os.getenv('APPDATA') or os.path.expanduser('~')
 SAVE_DIR = os.path.join(APP_DATA_PATH, 'QuestForge', 'data')
 PROFILE_PATH = os.path.join(SAVE_DIR, 'player_profile.json')
 
+
+DAILY_BOSS_BLUEPRINT = [
+    {"name": "The Slumbering Giant", "objective": "Get 7-8 hours of quality sleep.", "xp_reward": 500},
+    {"name": "The Gluttony Beast", "objective": "Go a full day without junk food or processed sugar.", "xp_reward": 400},
+    {"name": "The Iron Golem", "objective": "Complete any 3 Strength tasks.", "xp_reward": 600},
+    {"name": "The Sage's Challenge", "objective": "Read 20 pages of a non-fiction book.", "xp_reward": 450}
+]
+
+WEEKLY_BOSS_BLUEPRINT = [
+    {"name": "The Hydra of Neglect", "objective": "Reconnect with 3 old friends you haven't spoken to this month.", "xp_reward": 2000},
+    {"name": "The Titan of Comfort", "objective": "Do something that is significantly outside of your comfort zone.", "xp_reward": 2500},
+    {"name": "The Dragon of Hoarding", "objective": "Declutter a significant area of your room or workspace.", "xp_reward": 1500}
+]
+
 HABIT_BLUEPRINTS = {
     "Drink 8 glasses of water": {"xp_value": 20, "penalty": -15},
     "Read for 15 minutes":      {"xp_value": 30, "penalty": -20},
@@ -28,6 +42,7 @@ class Player:
             "name": "", "age": "", "gender": "", "level": 1,
             "xp": 0, "xp_limit": 10000,
             "last_login_date": "2000-01-01",
+            "current_week": "2000-W01",
             "stats": {
                 "Strength": {"level": 1, "xp": 0, "xp_limit": 1000, "tasks": {
                     "0xp task for refresh": 0, "Daily gym": 150, "Hit a new PR": 600, "Deadhang till failure": 200,
@@ -169,7 +184,28 @@ class Player:
             self.data["daily_todos"]["previous"]["date"] = (today - timedelta(days=1)).isoformat()
             self.data["daily_todos"]["current"]["date"] = today_str
 
+            self.generate_daily_boss() # <--- ADD THIS LINE
+
+
             self.data["last_login_date"] = today_str
+            self.save_profile()
+            return True
+        return False
+    
+    # --- ADD THIS ENTIRE NEW METHOD INSIDE THE PLAYER CLASS ---
+    def handle_weekly_reset(self):
+        """Checks if it's a new week and generates a new weekly boss."""
+        today = date.today()
+        # %W treats Monday as the first day of the week (00-53)
+        current_week_str = today.strftime("%Y-W%W")
+        last_week_str = self.data.get("current_week", "2000-W01")
+
+        if current_week_str > last_week_str:
+            print("📅 New week detected! Generating new Weekly Boss.")
+            if 'generate_weekly_boss' in dir(self):
+                self.generate_weekly_boss()
+            
+            self.data["current_week"] = current_week_str
             self.save_profile()
             return True
         return False
@@ -205,3 +241,37 @@ class Player:
             if task["done"]: self.add_xp(-XP_PER_TODO)
             self.save_profile(); return True
         return False
+    
+    # --- ADD THESE 4 NEW METHODS INSIDE THE PLAYER CLASS ---
+
+    def generate_daily_boss(self):
+        import random
+        boss_data = random.choice(DAILY_BOSS_BLUEPRINT)
+        self.data['daily_boss'] = {
+            "name": boss_data["name"],
+            "objective": boss_data["objective"],
+            "xp_reward": boss_data["xp_reward"],
+            "is_defeated": False
+        }
+
+    def generate_weekly_boss(self):
+        import random
+        boss_data = random.choice(WEEKLY_BOSS_BLUEPRINT)
+        self.data['weekly_boss'] = {
+            "name": boss_data["name"],
+            "objective": boss_data["objective"],
+            "xp_reward": boss_data["xp_reward"],
+            "is_defeated": False
+        }
+
+    def complete_daily_boss(self):
+        if self.data.get('daily_boss') and not self.data['daily_boss']['is_defeated']:
+            self.add_xp(self.data['daily_boss']['xp_reward'])
+            self.data['daily_boss']['is_defeated'] = True
+            self.save_profile()
+
+    def complete_weekly_boss(self):
+        if self.data.get('weekly_boss') and not self.data['weekly_boss']['is_defeated']:
+            self.add_xp(self.data['weekly_boss']['xp_reward'])
+            self.data['weekly_boss']['is_defeated'] = True
+            self.save_profile()
