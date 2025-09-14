@@ -2,14 +2,14 @@
     "name": "Abhinav",
     "age": "19",
     "gender": "male",
-    "level": 2,
-    "xp": 4680,
-    "xp_limit": 11500,
+    "level": 4,
+    "xp": 6850,
+    "xp_limit": 10000,
     "stats": {
         "Strength": {
-            "level": 3,
-            "xp": 800,
-            "xp_limit": 1440,
+            "level": 4,
+            "xp": 2110,
+            "xp_limit": 1728,
             "tasks": {
                 "0xp task for refresh": 0,
                 "Daily gym": 150,
@@ -29,7 +29,7 @@
         },
         "Knowledge": {
             "level": 3,
-            "xp": 200,
+            "xp": 800,
             "xp_limit": 1440,
             "tasks": {
                 "Read 10 pages of a book": 150,
@@ -46,9 +46,9 @@
             }
         },
         "Relationships": {
-            "level": 1,
-            "xp": 800,
-            "xp_limit": 1000,
+            "level": 2,
+            "xp": 500,
+            "xp_limit": 1200,
             "tasks": {
                 "Call a friend": 100,
                 "Spend time with family": 200,
@@ -64,7 +64,7 @@
         },
         "Stamina": {
             "level": 3,
-            "xp": 450,
+            "xp": 1050,
             "xp_limit": 1440,
             "tasks": {
                 "Half an hour of inclined walking": 250,
@@ -77,9 +77,9 @@
             }
         },
         "Mindfulness": {
-            "level": 1,
-            "xp": 400,
-            "xp_limit": 1000,
+            "level": 2,
+            "xp": 600,
+            "xp_limit": 1200,
             "tasks": {
                 "Complete a 20-minute guided meditation": 200,
                 "Practice breath-hold for 80seconds": 400,
@@ -94,7 +94,7 @@
         },
         "Reflexes": {
             "level": 2,
-            "xp": 740,
+            "xp": 1340,
             "xp_limit": 1200,
             "tasks": {
                 "Play a reaction-time game online (e.g., Human Benchmark)": 200,
@@ -109,9 +109,9 @@
             }
         },
         "Communication": {
-            "level": 1,
+            "level": 2,
             "xp": 700,
-            "xp_limit": 1000,
+            "xp_limit": 1200,
             "tasks": {
                 "Practice active listening in a conversation without planning your reply": 200,
                 "Engage in a 10-minute conversation with someone you don't know well": 400,
@@ -127,7 +127,7 @@
         },
         "Health": {
             "level": 1,
-            "xp": 200,
+            "xp": 800,
             "xp_limit": 1000,
             "tasks": {
                 "Drink 3 litres of water daily": 300,
@@ -144,7 +144,7 @@
         },
         "Creativity": {
             "level": 1,
-            "xp": 500,
+            "xp": 1100,
             "xp_limit": 1000,
             "tasks": {
                 "Work on a video": 300,
@@ -160,9 +160,9 @@
             }
         },
         "Finance": {
-            "level": 2,
-            "xp": 130,
-            "xp_limit": 1200,
+            "level": 5,
+            "xp": 1562,
+            "xp_limit": 2073,
             "tasks": {
                 "Find new stocks": 230,
                 "watch a video on finance": 200,
@@ -175,32 +175,80 @@
         }
     },
     "habits": {
-        "Drink 8 glasses of water": {
-            "xp_value": 20,
-            "penalty": -15,
-            "streak": 2,
-            "completed_today": true
+        "Drink 4 litres of water": {
+            "xp_value": 200,
+            "penalty": -100,
+            "streak": 1,
+            "completed_today": false
         },
-        "Read for 15 minutes": {
-            "xp_value": 30,
-            "penalty": -20,
+        "Read for a book for 15 minutes": {
+            "xp_value": 250,
+            "penalty": -100,
             "streak": 1,
             "completed_today": false
         },
         "Meditate for 10 minutes": {
-            "xp_value": 50,
-            "penalty": -25,
+            "xp_value": 200,
+            "penalty": -100,
             "streak": 1,
             "completed_today": false
         },
-        "Go for a 20-minute walk": {
-            "xp_value": 40,
-            "penalty": -20,
-            "streak": 0,
+        "20 minutes Cardio": {
+            "xp_value": 200,
+            "penalty": -100,
+            "streak": 1,
+            "completed_today": false
+        },
+        "Login to Quest Forge": {
+            "xp_value": 100,
+            "penalty": -50,
+            "streak": 1,
+            "completed_today": false
+        },
+        "Clean bed": {
+            "xp_value": 150,
+            "penalty": -75,
+            "streak": 1,
+            "completed_today": false
+        },
+        "Plan the day": {
+            "xp_value": 200,
+            "penalty": -60,
+            "streak": 1,
+            "completed_today": false
+        },
+        "Morning warm water": {
+            "xp_value": 200,
+            "penalty": -100,
+            "streak": 1,
+            "completed_today": false
+        },
+        "Go to gym": {
+            "xp_value": 150,
+            "penalty": -100,
+            "streak": 1,
+            "completed_today": false
+        },
+        "Avoid sugar and junk food": {
+            "xp_value": 200,
+            "penalty": -100,
+            "streak": 1,
+            "completed_today": false
+        },
+        "Take vitamins and supplements": {
+            "xp_value": 200,
+            "penalty": -70,
+            "streak": 1,
+            "completed_today": false
+        },
+        "Eat 3 sources of protein": {
+            "xp_value": 350,
+            "penalty": -150,
+            "streak": 1,
             "completed_today": false
         }
     },
-    "last_login_date": "2025-08-07",
+    "last_login_date": "2025-09-15",
     "weekly_todos": {
         "Monday": [
             {
@@ -325,28 +373,34 @@
         "Saturday": [],
         "Sunday": []
     },
-    "current_week": "2025-W30",
+    "current_week": "2025-W37",
     "daily_todos": {
         "previous": {
-            "date": "2025-08-06",
+            "date": "2025-09-14",
             "tasks": []
         },
         "current": {
-            "date": "2025-08-07",
-            "tasks": [
-                {
-                    "task": "hello",
-                    "done": false
-                },
-                {
-                    "task": "i have to buy groceries from the market",
-                    "done": false
-                }
-            ]
+            "date": "2025-09-15",
+            "tasks": []
         },
         "next": {
-            "date": "2025-08-08",
+            "date": "2025-09-16",
             "tasks": []
         }
+    },
+    "daily_boss": {
+        "stat_name": "Communication",
+        "task_name": "Practice speech exercises for clarity and pronunciation",
+        "bonus_xp": 300,
+        "is_defeated": false,
+        "rerolls_left": 1
+    },
+    "weekly_boss": {
+        "name": "The Doppelg\u00e4nger of Distraction",
+        "primary objective": "Perform a 'Digital Reset': Unfollow 50+ unhelpful social media accounts and unsubscribe from 10+ email newsletters.",
+        "stat objective": "Level up Mindfulness & Health once each.",
+        "xp_reward": 1600,
+        "is_defeated": false,
+        "rerolls_left": 1
     }
 }
