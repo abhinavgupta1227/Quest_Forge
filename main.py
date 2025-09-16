@@ -1,4 +1,4 @@
-# main.py (Definitive Final Version with Dynamic Bosses)
+# main.py 
 # -*- coding: utf-8 -*-
 import sys
 if sys.stdout and hasattr(sys.stdout, "reconfigure"):
@@ -12,7 +12,7 @@ import os
 import threading
 from datetime import datetime
 
-# Graceful imports
+
 try:
     from PIL import Image
     from customtkinter import CTkImage
@@ -30,7 +30,7 @@ try:
 except ImportError:
     IS_WINDOWS = False
 
-# --- ADD THIS FUNCTION AT THE TOP OF main.py ---
+
 
 # Helper function to find assets when packaged
 def resource_path(relative_path):
@@ -120,14 +120,14 @@ class SetupFrame(ctk.CTkFrame):
             messagebox.showerror("⚠️ Missing Information", "Please complete all fields!")
             return
         
-        # Set the profile as before
+       
         self.controller.player.set_profile(name, age, gender)
         
-        # --- NEW: Generate the first bosses for a new player ---
+        
         self.controller.player.generate_daily_boss()
         self.controller.player.generate_weekly_boss()
 
-        # Save the new profile with the boss data
+       
         self.controller.player.save_profile()
         
         # Transition to the next screen
@@ -156,25 +156,25 @@ class GreetingFrame(ctk.CTkFrame):
         if self.controller.player.data['name']: self.greet_label.configure(text=f"⚔️ Welcome, {self.controller.player.data['name']}! ⚔️")
 
 class MainAppFrame(ctk.CTkFrame):
-    # In main.py, replace the __init__ method inside MainAppFrame with this version.
+    
 
     def __init__(self, parent, controller):
         super().__init__(parent, fg_color=("#0d1117", "#0d1117"))
         self.controller = controller; self.widgets_to_update = {}; self.built_task_frames = set()
         
-        # --- CHANGE 1: Create a new top_frame for the fixed elements ---
+     
         top_frame = ctk.CTkFrame(self, fg_color="transparent")
         top_frame.pack(side="top", fill="x")
 
         bottom_bar = ctk.CTkFrame(self, height=60, fg_color=("gray10", "#181818"), border_width=1, border_color=("gray15", "#2a2a2a")); bottom_bar.pack(side="bottom", fill="x", pady=(10, 0), padx=10)
         
-        # The scrollable frame will now fill the remaining space in the middle
+      
         self.scrollable_frame = ctk.CTkScrollableFrame(self, fg_color="transparent"); self.scrollable_frame.pack(side="top", fill="both", expand=True)
         self.scrollable_frame.bind_all("<MouseWheel>", self._on_mousewheel)
 
         self.create_control_bar(bottom_bar)
         
-        # --- CHANGE 2: Pass the new top_frame and scrollable_frame to the content builder ---
+      
         self.create_main_content(top_frame, self.scrollable_frame)
         
         self.after(100, self.controller.update_ui)
@@ -187,7 +187,7 @@ class MainAppFrame(ctk.CTkFrame):
         ctk.CTkButton(btn_frame, text="❌ Exit", command=self.controller.destroy, fg_color=("#dc2626", "#ef4444"), hover_color=("#b91c1c", "#dc2626")).pack(side="right", padx=10)
 
     def create_main_content(self, top_container, scroll_container):
-        # --- All widgets in this section are now placed in the FIXED top_container ---
+      
         profile_section = ctk.CTkFrame(top_container, corner_radius=15, fg_color=("gray10", "#1a1a1a"), border_width=2, border_color=("#3b82f6", "#60a5fa")); profile_section.pack(fill="x", pady=10, padx=10)
         player_info_frame = ctk.CTkFrame(profile_section, fg_color="transparent"); player_info_frame.pack(expand=True, fill="both", pady=10)
         level_display_frame = ctk.CTkFrame(player_info_frame, fg_color="transparent"); level_display_frame.pack(side="left", padx=(20, 15), pady=5, fill="y")
@@ -195,9 +195,9 @@ class MainAppFrame(ctk.CTkFrame):
         player_level_label = ctk.CTkLabel(level_display_frame, text="", font=("Orbitron", 40, "bold"), text_color=("#fbbf24", "#fde047")); player_level_label.pack()
         avatar_frame = ctk.CTkFrame(player_info_frame, fg_color="transparent"); avatar_frame.pack(side="left", padx=(20, 15), pady=5)
         avatar_container = ctk.CTkFrame(avatar_frame, width=80, height=80, corner_radius=40, fg_color="transparent", border_width=3, border_color=("#fbbf24", "#fde047")); avatar_container.pack()
-        # --- NEW: Code to display a default avatar image ---
+       
         avatar_bg = ctk.CTkFrame(avatar_container, width=80, height=80, corner_radius=34, fg_color=("#1a1a1a", "#1a1a1a"))
-        avatar_bg.pack() # Use pack for easier image placement
+        avatar_bg.pack()
 
         if PIL_AVAILABLE:
             try:
@@ -207,10 +207,10 @@ class MainAppFrame(ctk.CTkFrame):
                 avatar_label.pack()
             except Exception as e:
                 print(f"Could not load default avatar: {e}")
-                # Fallback to emoji if image fails to load
+              
                 ctk.CTkLabel(avatar_bg, text="🧙‍♂️", font=("Arial", 40)).pack(expand=True)
         else:
-            # Fallback for when Pillow library is not installed
+           
             ctk.CTkLabel(avatar_bg, text="🧙‍♂️", font=("Arial", 40)).pack(expand=True)
         details_frame = ctk.CTkFrame(player_info_frame, fg_color="transparent"); details_frame.pack(side="left", fill="x", expand=True, pady=5)
         name_label = ctk.CTkLabel(details_frame, text="", font=("Orbitron", 28, "bold"), text_color=("#3b82f6", "#60a5fa")); name_label.pack(anchor="center", pady=(5,0))
@@ -225,8 +225,7 @@ class MainAppFrame(ctk.CTkFrame):
         xp_label = ctk.CTkLabel(xp_progress_frame, text="", font=("Arial", 14, "bold"), text_color=("#e5e7eb", "#f3f4f6")); xp_label.pack(pady=(0, 5))
         self.widgets_to_update.update({'main_level_label': level_label, 'main_xp_bar': main_xp_bar, 'main_xp_label': xp_label})
         
-        # --- All widgets below here are now placed in the SCROLLABLE container ---
-        top_content_section = ctk.CTkFrame(scroll_container, fg_color="transparent"); top_content_section.pack(fill="x", pady=10, padx=10)
+       top_content_section.pack(fill="x", pady=10, padx=10)
         top_content_section.grid_columnconfigure(0, weight=6); top_content_section.grid_columnconfigure(1, weight=4)
         left_column = ctk.CTkFrame(top_content_section, corner_radius=15, fg_color=("gray10", "#1a1a1a"), border_width=1, border_color=("#374151", "#4b5563")); left_column.grid(row=0, column=0, sticky="nsew", padx=(0, 10))
         right_column = ctk.CTkFrame(top_content_section, corner_radius=15, fg_color=("gray10", "#1a1a1a"), border_width=1, border_color=("#374151", "#4b5563")); right_column.grid(row=0, column=1, sticky="nsew", padx=(10, 0))
@@ -239,7 +238,7 @@ class MainAppFrame(ctk.CTkFrame):
         
         self._create_daily_todo_ui(scroll_container)
         
-        # --- NEW: Call the Boss UI builder ---
+      
         self._create_boss_ui(scroll_container)
 
     def _on_mousewheel(self, event):
@@ -327,7 +326,7 @@ class MainAppFrame(ctk.CTkFrame):
     def _delete_todo_callback(self, day_key, task_index):
         self.controller.player.delete_todo(day_key, task_index); self.controller.update_ui()
     
-    # --- NEW: Method to build the Boss UI ---
+ 
     def _create_boss_ui(self, parent):
         boss_section = ctk.CTkFrame(parent, corner_radius=15, fg_color=("gray10", "#1a1a1a"), border_width=1, border_color=("#374151", "#4b5563"))
         boss_section.pack(fill="x", pady=(20, 10), padx=10)
@@ -464,10 +463,10 @@ class MainAppFrame(ctk.CTkFrame):
                     reroll_state = "normal" if daily_boss_data['rerolls_left'] > 0 else "disabled"
                     widgets['daily_reroll_btn'].configure(text=reroll_text, state=reroll_state)
             else:
-                # Handle case where there is no daily boss
+              
                  widgets['daily_obj'].configure(text="No boss active today.")
 
-            # Weekly Boss Update Logic
+           
             weekly_boss_data = p_data.get('weekly_boss')
             if weekly_boss_data and weekly_boss_data.get('name'):
                 widgets['weekly_name'].configure(text=weekly_boss_data['name'])
@@ -570,7 +569,7 @@ if __name__ == "__main__":
             myappid = 'mycompany.questforge.1.0'; ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
         except Exception: pass
     
-    # --- FIX: New startup sequence with a separate splash screen object ---
+ 
     app = QuestForgeApp()
     splash = SplashScreen(app.frames['SetupFrame'])
     app.after(2000, splash.destroy)

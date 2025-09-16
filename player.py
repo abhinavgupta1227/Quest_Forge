@@ -1,15 +1,14 @@
-# player.py (Definitive Final Version)
+# player.py 
 import json
 import os
 import math
 from datetime import date, timedelta
 import random
 
-# Build a reliable path to the data file
+
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROFILE_PATH = os.path.join(SCRIPT_DIR, "data", "player_profile.json")
-# This finds the user's AppData\Roaming folder on Windows and creates a dedicated folder for our app's save data.
-# This ensures every user gets their own separate save file in a persistent location.
+
 APP_DATA_PATH = os.getenv('APPDATA') or os.path.expanduser('~')
 SAVE_DIR = os.path.join(APP_DATA_PATH, 'QuestForge', 'data')
 PROFILE_PATH = os.path.join(SAVE_DIR, 'player_profile.json')
@@ -251,7 +250,7 @@ class Player:
         boss_data = self.data.get('daily_boss', {})
         if boss_data.get('rerolls_left', 0) > 0:
             boss_data['rerolls_left'] -= 1
-            self.generate_daily_boss() # generate_daily_boss resets rerolls, so we set it back
+            self.generate_daily_boss() 
             self.data['daily_boss']['rerolls_left'] = 0 # Ensure it's 0 after rerolling
             self.save_profile()
             return True
